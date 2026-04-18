@@ -28,6 +28,11 @@ def cat(path):
     >>> cat('_test_bad.bin')
     'Error: cannot decode file'
     >>> os.remove('_test_bad.bin')
+    >>> import os
+    >>> os.makedirs('_test_dir', exist_ok=True)
+    >>> cat('_test_dir')
+    'Error: path is a directory, not a file'
+    >>> os.rmdir('_test_dir')
     """
     if not is_path_safe(path):
         return 'Error: unsafe path'
