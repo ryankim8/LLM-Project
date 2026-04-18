@@ -1,4 +1,4 @@
-# cmc-csci040-andrewvankomen
+# docsum AI chat tool
 
 ![Doctests](https://github.com/avankomen25/LLM-Project/actions/workflows/tests.yaml/badge.svg)
 ![Integration Tests](https://github.com/avankomen25/LLM-Project/actions/workflows/integration-tests.yaml/badge.svg)
@@ -6,8 +6,56 @@
 [![codecov](https://codecov.io/github/avankomen25/LLM-Project/graph/badge.svg?token=K97YWXIYUX)](https://codecov.io/github/avankomen25/LLM-Project)
 ![PyPI](https://img.shields.io/pypi/v/cmc-csci040-andrewvankomen)
 
+A command-line AI chat tool that lets you have conversations with your codebase. Point it at any project and ask questions — it can read files, search for patterns, and list directories automatically.
+
 ![Demo](llmdemo.gif)
 
-A command-line chat application that uses the Groq API to have conversations with an LLM.
+## Usage
 
-[PyPI page](https://pypi.org/project/cmc-csci040-andrewvankomen/)
+### eBay Scraper
+
+```bash
+$ cd test_projects/ebay_scraper
+$ chat
+chat> /ls .
+__pycache__
+ebay-dl.py
+hammer.csv
+hammer.json
+laptop.csv
+laptop.json
+stuffed_animal.csv
+stuffed_animal.json
+chat> what does this project scrape?
+The script scrapes eBay search result pages, extracting each listing’s name, price, status, shipping cost, free‑returns flag, and number of items sold. It outputs the collected data to JSON (or CSV).
+```
+
+This example shows how `/ls` loads the file list into context so the LLM can answer questions without making an extra tool call.
+
+### Markdown Compiler
+
+```bash
+$ cd test_projects/markdown_compiler
+$ chat
+chat> what does this project do?
+It’s a simple command‑line tool that reads a Markdown file and compiles it into an HTML document, optionally adding a CSS stylesheet for nicer formatting.
+```
+
+This example shows automatic tool use where the LLM reads the README on its own to answer the question.
+
+### Webpage
+
+```bash
+$ cd test_projects/webpage
+$ chat
+chat> what pages does this website link to?
+- **style.css** (stylesheet)
+- **index.html** (the fanpage itself)
+- **nfcwest.html** (NFC West Guide)
+- **2021superbowl.html** (2021 Superbowl)
+- **https://github.com/mikeizbicki/cmc-csci040** (CSCI040 course webpage)
+- **https://izbicki.me/** (Mike Izbicki’s personal webpage)
+- **https://sophia09zheng13.github.io/** (Sophia’s webpage)
+```
+
+This example shows automatic tool use where the LLM calls `grep` on its own to answer the question.
