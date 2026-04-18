@@ -24,7 +24,7 @@ TOOL_MAP = {
 }
 
 PROVIDER_MODELS = {
-    'groq': 'llama-3.3-70b-versatile',
+    'groq': 'openai/gpt-oss-120b',
     'openai': 'openai/gpt-4o',
     'anthropic': 'anthropic/claude-opus-4-6',
     'google': 'google/gemini-2.0-flash',
@@ -38,8 +38,8 @@ class Chat:
     Supports automatic tool calling via the LLM and manual slash commands.
 
     >>> chat = Chat()
-    >>> chat.send_message('Hi, my name is Bob', temperature=0.0)
-    "Hello Bob, it's nice to meet you."
+    >>> chat.send_message('Hello!', temperature=0.0)
+    'Hello! How can I help you with your code today?'
     >>> def monkey_input(prompt, user_inputs=['Hello, I am monkey.', 'Goodbye.']):
     ...     try:
     ...         user_input = user_inputs.pop(0)
@@ -51,9 +51,9 @@ class Chat:
     >>> builtins.input = monkey_input
     >>> repl(temperature=0.0)
     chat> Hello, I am monkey.
-    Hello monkey, I'm here to help you with any questions you have about code. What would you like to know?
+    Hello, monkey! How can I help you today?
     chat> Goodbye.
-    See you later monkey.
+    Goodbye! Feel free to return if you have any more questions.
     <BLANKLINE>
     '''
 
@@ -82,16 +82,19 @@ class Chat:
 
     def send_message(self, message, temperature=0.8):
         """Send a message and return the assistant response, handling tool calls if needed."""
-        self.messages = self.messages[:1] + self.messages[-10:]  # I want to trim history to avoid hitting token limits
+        self.messages = self.messages[:1] + self.messages[-10:]
         self.messages.append({'role': 'user', 'content': message})
         while True:
-            chat_completion = self.client.chat.completions.create(
-                messages=self.messages,
-                model=self.model,
-                temperature=temperature,
-                tools=TOOLS,
-                tool_choice='auto',
-            )
+            try:
+                chat_completion = self.client.chat.completions.create(
+                    messages=self.messages,
+                    model=self.model,
+                    temperature=temperature,
+                    tools=TOOLS,
+                    tool_choice='auto',
+                )
+            except Exception as e:
+                return f'Error: {e}'
             choice = chat_completion.choices[0]
             if choice.finish_reason == 'tool_calls':
                 self.messages.append(choice.message)
