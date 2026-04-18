@@ -67,7 +67,7 @@ class Chat:
     ...         raise KeyboardInterrupt
     >>> import builtins
     >>> builtins.input = monkey_input
-    >>> repl(temperature=0.0)  
+    >>> repl(temperature=0.0)
     chat> /ls .
     ...
     chat> Goodbye.
