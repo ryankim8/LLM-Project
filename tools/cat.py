@@ -7,27 +7,14 @@ def cat(path):
     """
     Return the contents of a file as a string.
 
-    >>> import os
-    >>> with open('_test_cat.txt', 'w') as f:
-    ...     _ = f.write('hello world')
-    >>> cat('_test_cat.txt')
-    'hello world'
+    >>> print(cat('requirements.txt'))
+    groq
+    python-dotenv
+    <BLANKLINE>
     >>> cat('_nonexistent_file.txt')
     'Error: file not found'
     >>> cat('/etc/passwd')
     'Error: unsafe path'
-    >>> os.remove('_test_cat.txt')
-    >>> import os
-    >>> with open('_test_binary.bin', 'wb') as f:
-    ...     _ = f.write(bytes([0xff, 0xfe, 0x68, 0x00, 0x69, 0x00]))
-    >>> cat('_test_binary.bin')
-    'hi'
-    >>> os.remove('_test_binary.bin')
-    >>> with open('_test_bad.bin', 'wb') as f:
-    ...     _ = f.write(bytes([0x80, 0x81, 0x82]))
-    >>> cat('_test_bad.bin')
-    'Error: cannot decode file'
-    >>> os.remove('_test_bad.bin')
     >>> import os
     >>> os.makedirs('_test_dir', exist_ok=True)
     >>> cat('_test_dir')

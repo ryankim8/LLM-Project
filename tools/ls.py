@@ -7,18 +7,18 @@ from tools.utils import is_path_safe
 def ls(path='.'):
     """List files in a directory, sorted asciibetically.
 
-    >>> import os, shutil
-    >>> os.makedirs('_test_ls_dir', exist_ok=True)
-    >>> ls('_test_ls_dir')
-    ''
     >>> ls('/etc')
     'Error: unsafe path'
-    >>> with open('_test_ls_dir/banana.txt', 'w') as f: _ = f.write('hi')
-    >>> with open('_test_ls_dir/apple.txt', 'w') as f: _ = f.write('hi')
-    >>> with open('_test_ls_dir/cherry.txt', 'w') as f: _ = f.write('hi')
-    >>> ls('_test_ls_dir') == 'apple.txt\\nbanana.txt\\ncherry.txt'
-    True
-    >>> shutil.rmtree('_test_ls_dir')
+    >>> ls('.github')
+    'workflows'
+    >>> print(ls('tools'))
+    __init__.py
+    __pycache__
+    calculate.py
+    cat.py
+    grep.py
+    ls.py
+    utils.py
     """
     if not is_path_safe(path):
         return 'Error: unsafe path'

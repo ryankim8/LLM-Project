@@ -7,3 +7,4 @@ htmlcov/
 dist/
 *.egg-info/
 coverage.xml
+__pycache__

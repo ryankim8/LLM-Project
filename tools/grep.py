@@ -9,16 +9,12 @@ def grep(pattern, path):
     """
     Search for lines matching a regex pattern across files matching a glob path.
 
-    >>> import os
-    >>> with open('_test_grep.txt', 'w') as f:
-    ...     _ = f.write('hello world\\nfoo bar\\nhello again')
-    >>> grep('hello', '_test_grep.txt')
-    'hello world\\nhello again'
-    >>> grep('zzz', '_test_grep.txt')
+    >>> grep('groq', 'requirements.txt')
+    'groq'
+    >>> grep('zzz', 'requirements.txt')
     ''
     >>> grep('hello', '/etc/passwd')
     'Error: unsafe path'
-    >>> os.remove('_test_grep.txt')
     >>> import os
     >>> with open('_test_binary.bin', 'wb') as f:
     ...     _ = f.write(bytes([0xff, 0xfe]))
