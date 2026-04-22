@@ -20,6 +20,8 @@ def cat(path):
     >>> cat('_test_dir')
     'Error: path is a directory, not a file'
     >>> os.rmdir('_test_dir')
+    >>> cat('llmdemo.gif')
+    'Error: cannot decode file'
     """
     if not is_path_safe(path):
         return 'Error: unsafe path'

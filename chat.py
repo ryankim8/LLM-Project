@@ -131,7 +131,7 @@ def run_slash_command(chat, user_input):
 
 def repl(temperature=0.8, provider='groq'):
     """Run the interactive chat REPL, supporting both messages and slash commands.
-    
+
     >>> def monkey_input(prompt, user_inputs=['Hello, I am monkey.', 'Goodbye.']):
     ...     try:
     ...         user_input = user_inputs.pop(0)
